@@ -1,0 +1,83 @@
+import { Image, StyleSheet, Text, View } from "react-native";
+
+const TYPE_COLORS = {
+  Plante: "#78C850",
+  Feu: "#F08030",
+  Eau: "#6890F0",
+  Électrik: "#F8D030",
+};
+
+export default function PokemonCard({ number, name, type, image }) {
+  const typeColor = TYPE_COLORS[type] ?? "#718096";
+
+  return (
+    <View style={styles.card}>
+      <View style={styles.imageContainer}>
+        <Image
+          source={{ uri: image }}
+          style={styles.image}
+        />
+      </View>
+      <View style={styles.details}>
+        <Text style={styles.number}>#{number}</Text>
+        <Text style={styles.name}>{name}</Text>
+        <View style={[styles.typeBadge, { backgroundColor: typeColor }]}>
+          <Text style={styles.type}>{type}</Text>
+        </View>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  card: {
+    alignItems: "center",
+    backgroundColor: "#e4f5ff",
+    borderRadius: 24,
+    flexDirection: "row",
+    marginBottom: 16,
+    minHeight: 132,
+    overflow: "hidden",
+    padding: 14,
+  },
+  imageContainer: {
+    alignItems: "center",
+    backgroundColor: "#f1f5f9",
+    borderRadius: 18,
+    height: 104,
+    justifyContent: "center",
+    width: 104,
+  },
+  image: {
+    height: 102,
+    width: 102,
+  },
+  details: {
+    flex: 1,
+    paddingLeft: 18,
+  },
+  number: {
+    color: "#94a3b8",
+    fontSize: 14,
+    fontWeight: "700",
+    letterSpacing: 1,
+  },
+  name: {
+    color: "#172554",
+    fontSize: 23,
+    fontWeight: "800",
+    marginBottom: 10,
+    marginTop: 2,
+  },
+  typeBadge: {
+    alignSelf: "flex-start",
+    borderRadius: 20,
+    paddingHorizontal: 12,
+    paddingVertical: 5,
+  },
+  type: {
+    color: "#ffffff",
+    fontSize: 13,
+    fontWeight: "800",
+  },
+});
