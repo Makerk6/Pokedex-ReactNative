@@ -1,6 +1,7 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import PokemonCard from "../components/PokemonCard";
 import Titre from "../components/Titre";
+import PokeballCounter from "../components/PokeballCounter";
 
 const ARTWORK =
   "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/";
@@ -26,6 +27,7 @@ export default function Index() {
           <Text style={styles.count}>
             Nombre de Pokémon : {POKEMONS.length}
           </Text>
+          <PokeballCounter/>
         </View>
         {POKEMONS.map((pokemon) => (
           <PokemonCard key={pokemon.number} {...pokemon} />
