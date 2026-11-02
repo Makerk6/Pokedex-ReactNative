@@ -1,4 +1,5 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import PokemonCard from "../components/PokemonCard";
 import Titre from "../components/Titre";
 import PokeballCounter from "../components/PokeballCounter";
@@ -19,17 +20,32 @@ const POKEMONS = [
 }));
 
 export default function Index() {
+  const [feuSeulement, setFeuSeulement] = useState(false);
+  const visibles = feuSeulement
+    ? POKEMONS.filter((pokemon) => pokemon.type === "Feu")
+    : POKEMONS;
+
   return (
     <View style={styles.screen}>
       <ScrollView contentContainerStyle={styles.listContent}>
         <View style={styles.header}>
           <Titre />
           <Text style={styles.count}>
-            Nombre de Pokémon : {POKEMONS.length}
+            Nombre de Pokémon : {visibles.length}
           </Text>
-          <PokeballCounter/>
+          <PokeballCounter />
+          <Pressable
+            style={styles.filtreFeu}
+            onPress={() => setFeuSeulement(!feuSeulement)}
+          >
+            <Text style={{color: "white"}}>
+              {feuSeulement
+                ? "Afficher tous les Pokémon"
+                : "Seulement les types Feu"}
+            </Text>
+          </Pressable>
         </View>
-        {POKEMONS.map((pokemon) => (
+        {visibles.map((pokemon) => (
           <PokemonCard key={pokemon.number} {...pokemon} />
         ))}
       </ScrollView>
@@ -55,5 +71,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 7,
     textAlign: "center",
+  },
+  filtreFeu: {
+    alignItems: "center",
+    alignSelf: "center",
+    backgroundColor: "#353535",
+    borderRadius: 18,
+    marginTop: 12,
+    padding: 10,
   },
 });
