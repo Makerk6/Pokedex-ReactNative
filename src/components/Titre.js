@@ -7,7 +7,7 @@ export default function Titre() {
 const styles = StyleSheet.create({
   title: {
     fontSize: 32,
-    fontWeight: "700",
+    fontWeight: 700,
     textAlign: "center",
   },
 });
