@@ -20,6 +20,8 @@ export default function Index() {
         data={visibles}
         keyExtractor={(item) => String(item.number)}
         contentContainerStyle={styles.listContent}
+        numColumns={2}
+        columnWrapperStyle={styles.columnWrapper}
         ListHeaderComponent={
           <View style={styles.header}>
             <Titre />
@@ -61,6 +63,9 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
     paddingHorizontal: 20,
     paddingTop: 54,
+  },
+  columnWrapper: {
+    justifyContent: "center",
   },
   header: {
     marginBottom: 26,
