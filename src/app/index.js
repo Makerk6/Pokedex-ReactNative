@@ -1,23 +1,19 @@
 import { useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+} from "react-native";
 import PokemonCard from "../components/PokemonCard";
 import Titre from "../components/Titre";
 import PokeballCounter from "../components/PokeballCounter";
+import POKEMONS from "../app/pokemons";
 
 const ARTWORK =
   "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/";
-
-const POKEMONS = [
-  { number: 1, name: "Bulbizarre", type: "Plante" },
-  { number: 4, name: "Salamèche", type: "Feu" },
-  { number: 7, name: "Carapuce", type: "Eau" },
-  { number: 25, name: "Pikachu", type: "Électrik" },
-  { number: 37, name: "Goupix", type: "Feu" },
-  { number: 43, name: "Mystherbe", type: "Plante" },
-].map((pokemon) => ({
-  ...pokemon,
-  image: `${ARTWORK}${pokemon.number}.png`,
-}));
 
 export default function Index() {
   const [feuSeulement, setFeuSeulement] = useState(false);
@@ -27,7 +23,19 @@ export default function Index() {
 
   return (
     <View style={styles.screen}>
-      <ScrollView contentContainerStyle={styles.listContent}>
+      <FlatList
+        data={visibles}
+        keyExtractor={(item) => String(item.number)}
+        renderItem={({ item }) => (
+          <PokemonCard
+            number={item.number}
+            name={item.name}
+            type={item.type}
+            artwork={ARTWORK}
+          />
+        )}
+        contentContainerStyle={styles.listContent}
+      >
         <View style={styles.header}>
           <Titre />
           <Text style={styles.count}>
@@ -38,17 +46,14 @@ export default function Index() {
             style={styles.filtreFeu}
             onPress={() => setFeuSeulement(!feuSeulement)}
           >
-            <Text style={{color: "white"}}>
+            <Text style={{ color: "white" }}>
               {feuSeulement
                 ? "Afficher tous les Pokémon"
                 : "Seulement les types Feu"}
             </Text>
           </Pressable>
         </View>
-        {visibles.map((pokemon) => (
-          <PokemonCard key={pokemon.number} {...pokemon} />
-        ))}
-      </ScrollView>
+      </FlatList>
     </View>
   );
 }

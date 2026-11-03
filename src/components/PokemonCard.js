@@ -8,14 +8,14 @@ const TYPE_COLORS = {
   Électrik: "#F8D030",
 };
 
-export default function PokemonCard({ number, name, type, image }) {
+export default function PokemonCard({ number, name, type, artwork }) {
   const typeColor = TYPE_COLORS[type] ?? "#718096";
   const [capture, setCapture] = useState(false);
 
   return (
     <View style={styles.card}>
       <View style={styles.imageContainer}>
-        <Image source={{ uri: image }} style={styles.image} />
+        <Image source={{ uri: `${artwork}${number}.png` }} style={styles.image} />
       </View>
       <View style={styles.details}>
         <Text style={styles.number}>#{number}</Text>
