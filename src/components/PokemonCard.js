@@ -15,7 +15,10 @@ export default function PokemonCard({ number, name, type, artwork }) {
   return (
     <View style={styles.card}>
       <View style={styles.imageContainer}>
-        <Image source={{ uri: `${artwork}${number}.png` }} style={styles.image} />
+        <Image
+          source={{ uri: `${artwork}${number}.png` }}
+          style={styles.image}
+        />
       </View>
       <View style={styles.details}>
         <Text style={styles.number}>#{number}</Text>
@@ -23,11 +26,14 @@ export default function PokemonCard({ number, name, type, artwork }) {
         <View style={[styles.typeBadge, { backgroundColor: typeColor }]}>
           <Text style={styles.type}>{type}</Text>
         </View>
-        <Pressable style={[styles.capture, capture && styles.nonCapture]} onPress={() => setCapture(!capture)}>
-            <Text style={{ fontWeight: capture ? "700" : "300" }}>
-              {capture ? "Capturé" : "Non capturé"}
-            </Text>
-          </Pressable>
+        <Pressable
+          style={[styles.capture, capture && styles.nonCapture]}
+          onPress={() => setCapture(!capture)}
+        >
+          <Text style={{ fontWeight: capture ? "700" : "300" }}>
+            {capture ? "Capturé" : "Non capturé"}
+          </Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -84,20 +90,20 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: "800",
   },
-  capture:{
+  capture: {
     alignSelf: "flex-start",
     marginTop: 5,
     borderRadius: 20,
     paddingHorizontal: 12,
     paddingVertical: 5,
-    backgroundColor: "#d7eceb"
+    backgroundColor: "#d7eceb",
   },
-  nonCapture:{
+  nonCapture: {
     alignSelf: "flex-start",
     marginTop: 5,
     borderRadius: 20,
     paddingHorizontal: 12,
     paddingVertical: 5,
-    backgroundColor:"#3aa2f7"
-  }
+    backgroundColor: "#3aa2f7",
+  },
 });

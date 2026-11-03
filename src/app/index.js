@@ -1,12 +1,5 @@
 import { useState } from "react";
-import {
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-} from "react-native";
+import { Pressable, StyleSheet, Text, View, FlatList } from "react-native";
 import PokemonCard from "../components/PokemonCard";
 import Titre from "../components/Titre";
 import PokeballCounter from "../components/PokeballCounter";
@@ -26,6 +19,26 @@ export default function Index() {
       <FlatList
         data={visibles}
         keyExtractor={(item) => String(item.number)}
+        contentContainerStyle={styles.listContent}
+        ListHeaderComponent={
+          <View style={styles.header}>
+            <Titre />
+            <Text style={styles.count}>
+              Nombre de Pokémon : {visibles.length}
+            </Text>
+            <PokeballCounter />
+            <Pressable
+              style={styles.filtreFeu}
+              onPress={() => setFeuSeulement(!feuSeulement)}
+            >
+              <Text style={{ color: "white" }}>
+                {feuSeulement
+                  ? "Afficher tous les Pokémon"
+                  : "Seulement les types Feu"}
+              </Text>
+            </Pressable>
+          </View>
+        }
         renderItem={({ item }) => (
           <PokemonCard
             number={item.number}
@@ -34,26 +47,7 @@ export default function Index() {
             artwork={ARTWORK}
           />
         )}
-        contentContainerStyle={styles.listContent}
-      >
-        <View style={styles.header}>
-          <Titre />
-          <Text style={styles.count}>
-            Nombre de Pokémon : {visibles.length}
-          </Text>
-          <PokeballCounter />
-          <Pressable
-            style={styles.filtreFeu}
-            onPress={() => setFeuSeulement(!feuSeulement)}
-          >
-            <Text style={{ color: "white" }}>
-              {feuSeulement
-                ? "Afficher tous les Pokémon"
-                : "Seulement les types Feu"}
-            </Text>
-          </Pressable>
-        </View>
-      </FlatList>
+      ></FlatList>
     </View>
   );
 }

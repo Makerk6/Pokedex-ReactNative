@@ -11,12 +11,12 @@ export default function PokeballCounter() {
       <View style={styles.plusMoins}>
         <View style={styles.bouton}>
           <Pressable onPress={() => setBalls(count - 1)}>
-            <Text style={{fontSize: 30}}>-</Text>
+            <Text style={{ fontSize: 30 }}>-</Text>
           </Pressable>
         </View>
         <View style={styles.bouton}>
           <Pressable onPress={() => setBalls(count + 1)}>
-            <Text style={{fontSize: 30}}>+</Text>
+            <Text style={{ fontSize: 30 }}>+</Text>
           </Pressable>
         </View>
       </View>
