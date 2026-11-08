@@ -1,19 +1,27 @@
 import { useState } from "react";
-import { Pressable, StyleSheet, Text, View, FlatList } from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import POKEMONS from "../app/pokemons";
+import PokeballCounter from "../components/PokeballCounter";
 import PokemonCard from "../components/PokemonCard";
 import Titre from "../components/Titre";
-import PokeballCounter from "../components/PokeballCounter";
-import POKEMONS from "../app/pokemons";
 
 const ARTWORK =
   "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/";
 
 export default function Index() {
+  const [capturedTab, setCapturedTab] = useState([]);
+  var capturedNb = capturedTab.length;
   const [feuSeulement, setFeuSeulement] = useState(false);
   const visibles = feuSeulement
     ? POKEMONS.filter((pokemon) => pokemon.type === "Feu")
     : POKEMONS;
-
+  function capturer(id) {
+    if (capturedTab.includes(id)) {
+      setCapturedTab(capturedTab.filter((l) => l !== id));
+    } else {
+      setCapturedTab([...capturedTab, id]);
+    }
+  }
   return (
     <View style={styles.screen}>
       <FlatList
@@ -21,6 +29,7 @@ export default function Index() {
         keyExtractor={(item) => String(item.number)}
         contentContainerStyle={styles.listContent}
         numColumns={2}
+        extraData={capturedTab}
         columnWrapperStyle={styles.columnWrapper}
         ListHeaderComponent={
           <View style={styles.header}>
@@ -29,6 +38,7 @@ export default function Index() {
               Nombre de Pokémon : {visibles.length}
             </Text>
             <PokeballCounter />
+            <Text style={styles.count}>Nombre de capture : {capturedNb}</Text>
             <Pressable
               style={styles.filtreFeu}
               onPress={() => setFeuSeulement(!feuSeulement)}
@@ -47,6 +57,8 @@ export default function Index() {
             name={item.name}
             type={item.type}
             artwork={ARTWORK}
+            capture={capturedTab.includes(item.number)}
+            onCapture={() => capturer(item.number)}
           />
         )}
       ></FlatList>

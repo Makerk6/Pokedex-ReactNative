@@ -19,7 +19,13 @@ const TYPE_COLORS = {
   Électrik: "#F8D030",
 };
 
-export default function PokemonCard({ number, name, type, artwork }) {
+export default function PokemonCard({
+  number,
+  name,
+  type,
+  artwork,
+  onCapture,
+}) {
   const typeColor = TYPE_COLORS[type] ?? "#718096";
   const [capture, setCapture] = useState(false);
 
@@ -39,7 +45,10 @@ export default function PokemonCard({ number, name, type, artwork }) {
         </View>
         <Pressable
           style={[styles.capture, capture && styles.nonCapture]}
-          onPress={() => setCapture(!capture)}
+          onPress={() => {
+            setCapture(!capture);
+            onCapture();
+          }}
         >
           <Text style={{ fontWeight: capture ? "700" : "300" }}>
             {capture ? "Capturé" : "Non capturé"}
