@@ -11,10 +11,15 @@ const ARTWORK =
 export default function Index() {
   const [capturedTab, setCapturedTab] = useState([]);
   var capturedNb = capturedTab.length;
-  const [feuSeulement, setFeuSeulement] = useState(false);
-  const visibles = feuSeulement
-    ? POKEMONS.filter((pokemon) => pokemon.type === "Feu")
+  // const [feuSeulement, setFeuSeulement] = useState(false);
+  // const visibles = feuSeulement
+  //   ? POKEMONS.filter((pokemon) => pokemon.type === "Feu")
+  //   : POKEMONS;
+  const [captureSeulement, setCaptureSeulement] = useState(false);
+  const visibles = captureSeulement
+    ? POKEMONS.filter((pokemon) => capturedTab.includes(pokemon.number))
     : POKEMONS;
+
   function capturer(id) {
     if (capturedTab.includes(id)) {
       setCapturedTab(capturedTab.filter((l) => l !== id));
@@ -41,12 +46,12 @@ export default function Index() {
             <Text style={styles.count}>Nombre de capture : {capturedNb}</Text>
             <Pressable
               style={styles.filtreFeu}
-              onPress={() => setFeuSeulement(!feuSeulement)}
+              onPress={() => setCaptureSeulement(!captureSeulement)}
             >
               <Text style={{ color: "white" }}>
-                {feuSeulement
+                {captureSeulement
                   ? "Afficher tous les Pokémon"
-                  : "Seulement les types Feu"}
+                  : "Seulement les Pokémon capturés"}
               </Text>
             </Pressable>
           </View>
