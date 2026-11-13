@@ -8,7 +8,7 @@ const ARTWORK =
 
 export default function FichePokemon() {
   const { number } = useLocalSearchParams();
-  const pokemon = POKEMONS.find((p) => p.number === parseInt(number));
+  const pokemon = POKEMONS.find((p) => p.number === Number(number));
   return (
     <View style={styles.screen}>
       <Stack.Screen options={{ title: pokemon.name }} />

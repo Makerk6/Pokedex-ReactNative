@@ -41,7 +41,10 @@ export default function PokemonCard({
       <View style={styles.details}>
         <Text style={styles.number}>#{number}</Text>
         <Link
-          href={{ pathname: "/pokemon", params: { number: String(number) } }}
+          href={{
+            pathname: "/pokemon",
+            params: { number: String(number) },
+          }}
         >
           <Text style={styles.name}>{name}</Text>
         </Link>
