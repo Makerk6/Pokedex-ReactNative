@@ -1,3 +1,4 @@
+import { Link } from "expo-router";
 import { useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
@@ -39,7 +40,11 @@ export default function PokemonCard({
       </View>
       <View style={styles.details}>
         <Text style={styles.number}>#{number}</Text>
-        <Text style={styles.name}>{name}</Text>
+        <Link
+          href={{ pathname: "/pokemon", params: { number: String(number) } }}
+        >
+          <Text style={styles.name}>{name}</Text>
+        </Link>
         <View style={[styles.typeBadge, { backgroundColor: typeColor }]}>
           <Text style={styles.type}>{type}</Text>
         </View>
