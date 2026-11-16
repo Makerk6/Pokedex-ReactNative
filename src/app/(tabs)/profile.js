@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function Profile() {
   return (
@@ -7,3 +7,11 @@ export default function Profile() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  screen: {
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "center",
+  },
+});
