@@ -1,10 +1,10 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
-import PokeballCounter from "../components/PokeballCounter";
-import PokemonCard from "../components/PokemonCard";
-import Titre from "../components/Titre";
-import POKEMONS from "../data/pokemons";
+import PokeballCounter from "../../components/PokeballCounter";
+import PokemonCard from "../../components/PokemonCard";
+import Titre from "../../components/Titre";
+import POKEMONS from "../../data/pokemons";
 
 const ARTWORK =
   "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/";
