@@ -1,17 +1,18 @@
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import PokeballCounter from "../../components/PokeballCounter";
 import PokemonCard from "../../components/PokemonCard";
 import Titre from "../../components/Titre";
-import POKEMONS from "../../data/pokemons";
 
+const API = "https://pokeapi.co/api/v2/pokemon?limit=151";
 const ARTWORK =
   "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/";
 
 export default function Index() {
   const router = useRouter();
   const [capturedTab, setCapturedTab] = useState([]);
+  const [pokemons, setPokemons] = useState(null);
   var capturedNb = capturedTab.length;
   // const [feuSeulement, setFeuSeulement] = useState(false);
   // const visibles = feuSeulement
@@ -19,8 +20,8 @@ export default function Index() {
   //   : POKEMONS;
   const [captureSeulement, setCaptureSeulement] = useState(false);
   const visibles = captureSeulement
-    ? POKEMONS.filter((pokemon) => capturedTab.includes(pokemon.number))
-    : POKEMONS;
+    ? pokemons.filter((pokemon) => capturedTab.includes(pokemon.number))
+    : pokemons;
 
   function capturer(id) {
     if (capturedTab.includes(id)) {
@@ -29,6 +30,36 @@ export default function Index() {
       setCapturedTab([...capturedTab, id]);
     }
   }
+
+  async function charger() {
+    const response = await fetch(API);
+    const data = await response.json();
+    const liste = await Promise.all(
+      data.results.map(async (pokemon, i) => {
+        const detailResponse = await fetch(pokemon.url);
+        const detail = await detailResponse.json();
+        return {
+          number: i + 1,
+          name: pokemon.name,
+          type: detail.types[0].type.name,
+        };
+      }),
+    );
+    setPokemons(liste);
+  }
+
+  useEffect(() => {
+    charger();
+  }, []);
+
+  if (!pokemons) {
+    return (
+      <View style={styles.screen}>
+        <Text>Chargement...</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.screen}>
       <FlatList

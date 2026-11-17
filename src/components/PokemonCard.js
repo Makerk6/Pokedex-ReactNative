@@ -3,21 +3,23 @@ import { useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 const TYPE_COLORS = {
-  Plante: "#78C850",
-  Feu: "#F08030",
-  Eau: "#6890F0",
-  Terre: "#E0C068",
-  Roche: "#B8A038",
-  Insecte: "#A8B820",
-  Normal: "#A8A878",
-  Poison: "#A040A0",
-  Vol: "#A890F0",
-  Combat: "#C03028",
-  Psy: "#F85888",
-  Spectre: "#705898",
-  Sol: "#F8D030",
-  Fée: "#EE99AC",
-  Électrik: "#F8D030",
+  grass: "#78C850",
+  fire: "#F08030",
+  water: "#6890F0",
+  ground: "#E0C068",
+  rock: "#B8A038",
+  bug: "#A8B820",
+  normal: "#A8A878",
+  poison: "#A040A0",
+  flying: "#A890F0",
+  fighting: "#C03028",
+  psychic: "#F85888",
+  ghost: "#705898",
+  fairy: "#EE99AC",
+  steel: "#B8B8D0",
+  electric: "#F8D030",
+  dragon: "#7038F8",
+  ice: "#98D8D8",
 };
 
 export default function PokemonCard({
