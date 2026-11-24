@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
@@ -24,10 +25,14 @@ export default function Index() {
     : pokemons;
 
   function capturer(id) {
+    let captureList = [];
     if (capturedTab.includes(id)) {
       setCapturedTab(capturedTab.filter((l) => l !== id));
+      setCapturedTab(captureList);
+      AsyncStorage.setItem("captured", JSON.stringify(captureList));
     } else {
       setCapturedTab([...capturedTab, id]);
+      AsyncStorage.setItem("captured", JSON.stringify([...capturedTab, id]));
     }
   }
 
@@ -48,8 +53,16 @@ export default function Index() {
     setPokemons(liste);
   }
 
+  async function chargerCapture() {
+    const captured = await AsyncStorage.getItem("captured");
+    if (captured) {
+      setCapturedTab(JSON.parse(captured));
+    }
+  }
+
   useEffect(() => {
     charger();
+    chargerCapture();
   }, []);
 
   if (!pokemons) {
